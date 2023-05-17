@@ -6,21 +6,37 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/17 14:29:56 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:17:33 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_window	mlx;
+	t_scene		scene;
 
+	if (argc != 2)
+	{
+		printf("ERROR: Wrong argument count\n");
+		return (1);
+	}
+	if (check_if_rt(argv[1]))
+	{
+		printf("ERROR: .rt file required\n");
+		return (2);
+	}
+	if (parse(argv[1], &scene))
+	{
+		perror("ERROR");
+		return (3);
+	}
 	mlx.width = 1920;
 	mlx.height= 1280;
 	mlx.mlx = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx, mlx.width, mlx.height, "miniRT");
-	ft_new_img(&mlx);
+	ft_new_img(&mlx, &scene);
 	mlx_key_hook(mlx.mlx_win, ft_key_hook, &mlx);
 	mlx_hook(mlx.mlx_win, 17, 0, ft_close, &mlx);
 	mlx_loop(mlx.mlx);
@@ -35,7 +51,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	ft_new_img(t_window *mlx)
+int	ft_new_img(t_window *mlx, t_scene *scene)
 {
 	int			i;
 	int			j;
@@ -44,6 +60,7 @@ int	ft_new_img(t_window *mlx)
 	t_sphere	sphere;
 	double		t;
 
+	scene->camera.fov = 10;
 	mlx->img.img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bits_per_pixel,
 			&mlx->img.line_length, &mlx->img.endian);
