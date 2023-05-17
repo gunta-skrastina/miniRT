@@ -6,7 +6,7 @@ CFLAGS = -Wextra -Wall -Werror -fsanitize=address
 NAME = miniRT
 MLX = libmlx.a
 
-SRCS = main.c events.c vec3.c sphere.c
+SRCS = main.c events.c sphere.c
 
 OBJS = $(SRCS:.c=.o)
 
