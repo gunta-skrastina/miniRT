@@ -5,26 +5,36 @@ CFLAGS = -Wextra -Wall -Werror -fsanitize=address
 
 NAME = miniRT
 MLX = libmlx.a
+LIBFT = libft.a
 
-SRCS = main.c events.c sphere.c
+SRCS = src/main.c \
+		src/events.c \
+		src/sphere.c \
+		src/vec3.c \
+		src/color.c
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(MLX) $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
 
 $(MLX):
 	$(MAKE) -C mlx
-	cp mlx/$(MLX) $(MLX)
+	mv mlx/$(MLX) $(MLX)
+
+$(LIBFT):
+	$(MAKE) -C libft
+	mv libft/$(LIBFT) $(LIBFT)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(MLX) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(MLX) $(LIBFT) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
+	$(MAKE) clean -C libft
 	rm -f $(OBJS) 
 	rm -rf *.dSYM
 
 fclean: clean
-	rm -f $(NAME) $(MLX)
+	rm -f $(NAME) $(MLX) $(LIBFT)
 
 re: fclean all
 

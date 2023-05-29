@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 08:31:39 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/04/25 08:53:06 by gskrasti         ###   ########.fr       */
+/*   Created: 2023/05/29 15:06:46 by gskrasti          #+#    #+#             */
+/*   Updated: 2023/05/29 16:25:47 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef VEC3_H
+# define VEC3_H
 
-int	ft_hook(int event, t_window *mlx)
+typedef struct s_vec3
 {
-	if (event == 17)
-		ft_close(mlx);
-	return (0);
-}
+	double	x;
+	double	y;
+	double	z;
+}	t_vec3;
 
-int	ft_key_hook(int keycode, t_window *mlx)
-{
-	if (keycode == 53)
-		ft_close(mlx);
-	return (0);
-}
+t_vec3	multiply_vec3(t_vec3 vec3, double num);
+t_vec3	subtract_vec3(t_vec3 one, t_vec3 two);
+t_vec3	mutilply_vec3_vec3(t_vec3 one, t_vec3 two);
+t_vec3	add_vec3_vec3(t_vec3 one, t_vec3 two);
+t_vec3	add_vec3(t_vec3 vec3, double num);
 
-int	ft_close(t_window *mlx)
-{
-	mlx_destroy_image(mlx->mlx, mlx->img.img);
-	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
-	exit(0);
-	return (0);
-}
+#endif

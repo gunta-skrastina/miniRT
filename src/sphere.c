@@ -6,13 +6,13 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:08:25 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/17 14:29:53 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:13:10 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
-int intersectSphere(t_ray ray, t_sphere sphere, double *t)
+int	intersect_sphere(t_ray ray, t_sphere sphere, double *t)
 {
 	double	a;
 	double	b;
@@ -21,12 +21,12 @@ int intersectSphere(t_ray ray, t_sphere sphere, double *t)
 	double	t0;
 	double	t1;
 	double	temp;
-	
+
 	a = ray.direction.x * ray.direction.x + ray.direction.y * ray.direction.y + ray.direction.z * ray.direction.z;
 	b = 2 * (ray.direction.x * (ray.origin.x - sphere.center.x) + ray.direction.y * (ray.origin.y - sphere.center.y) + ray.direction.z * (ray.origin.z - sphere.center.z));
-	c = sphere.center.x * sphere.center.x + sphere.center.y * sphere.center.y + sphere.center.z * sphere.center.z +
-		ray.origin.x * ray.origin.x + ray.origin.y * ray.origin.y + ray.origin.z * ray.origin.z -
-		2 * (sphere.center.x * ray.origin.x + sphere.center.y * ray.origin.y + sphere.center.z * ray.origin.z) - sphere.radius * sphere.radius;
+	c = sphere.center.x * sphere.center.x + sphere.center.y * sphere.center.y + sphere.center.z * sphere.center.z
+		+ ray.origin.x * ray.origin.x + ray.origin.y * ray.origin.y + ray.origin.z * ray.origin.z - 2
+		* (sphere.center.x * ray.origin.x + sphere.center.y * ray.origin.y + sphere.center.z * ray.origin.z) - sphere.radius * sphere.radius;
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 		return (0);
