@@ -6,19 +6,19 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:51:03 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/29 16:11:56 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:27:53 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minirt.h"
+#include "../includes/minirt.h"
 
-int convert_to_rgb(t_vec3 vec3)
+int	convert_to_rgb(t_vec3 vec3)
 {
-	int color;
-	int r;
-	int g;
-	int b;
-	
+	int	color;
+	int	r;
+	int	g;
+	int	b;
+
 	r = 0;
 	g = 0;
 	b = 0;
