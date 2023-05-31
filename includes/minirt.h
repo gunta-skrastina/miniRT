@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/31 12:57:37 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:57:15 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,11 @@ typedef struct s_scene
 	t_amb_light	*amb_light;
 	t_camera	*camera;
 	t_light		*light;
+	int			num_spheres;
 	t_sphere	*sphere;
+	int			num_planes;
 	t_plane		*plane;
+	int			num_cylinders;
 	t_cylinder	*cylinder;
 }	t_scene;
 
