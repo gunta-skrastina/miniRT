@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/31 14:55:09 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:47:07 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,10 @@ int	ft_new_img(t_window *mlx, t_scene *scene)
 		while (i < mlx->width)
 		{
 			viewport = canvas_to_viewport(i, j, scene->camera);
-			ray.direction.x = viewport.x;
-			ray.direction.y = viewport.y;
-			ray.direction.z = 1.0;
+			ray.direction.x = viewport.x + scene->camera->normal_vec3.x;
+			ray.direction.y = viewport.y + scene->camera->normal_vec3.y;
+			ray.direction.z = scene->camera->normal_vec3.z;
+			ray.direction = normalize_vec3(ray.direction);
 			color = 0x00555555;
 			closest_t = INFINITY;
 			closest_sphere_index = -1;
