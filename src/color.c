@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:51:03 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/31 13:27:53 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:50:02 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@ int	convert_to_rgb(t_vec3 vec3)
 	int	g;
 	int	b;
 
-	r = 0;
-	g = 0;
-	b = 0;
-	if (vec3.x > 0 && vec3.x < 1)
-		r = vec3.x * 255;
-	if (vec3.y > 0 && vec3.y < 1)
-		g = vec3.y * 255;
-	if (vec3.z > 0 && vec3.z < 1)
-		b = vec3.z * 255;
+	r = clamp(vec3.x, 0, 255);
+	g = clamp(vec3.y, 0, 255);
+	b = clamp(vec3.z, 0, 255);
 	color = r << 16 | g << 8 | b;
 	return (color);
+}
+
+double	clamp(double num, double min, double max)
+{
+	if (num < min)
+		return (min);
+	if (num > max)
+		return (max);
+	return (num);
 }

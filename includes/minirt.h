@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/31 13:57:15 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:27:56 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ t_vec3	normalize_vec3(t_vec3 vec3);
 int		convert_to_rgb(t_vec3 vec3);
 t_vec2	canvas_to_viewport(int x, int y, t_camera *camera);
 double	calculate_camera_distance(t_camera *camera);
+double	clamp(double num, double min, double max);
 
 #endif

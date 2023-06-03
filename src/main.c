@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/01 11:47:07 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:00:40 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(void)
 	scene->camera->normal_vec3.z = 1;
 	scene->camera->fov = 70;
 	scene->light = malloc(sizeof(t_light));
-	scene->light->light_point.x = -40;
-	scene->light->light_point.y = 50;
+	scene->light->light_point.x = 10;
+	scene->light->light_point.y = 10;
 	scene->light->light_point.z = 0;
 	scene->light->light_brightness = 0.6;
 	scene->num_spheres = 3;
@@ -49,16 +49,16 @@ int	main(void)
 	scene->sphere[1].center.y = 0;
 	scene->sphere[1].center.z = 22.6;
 	scene->sphere[1].radius = 3;
-	scene->sphere[2].color.x = 10;
-	scene->sphere[2].color.y = 0;
-	scene->sphere[2].color.z = 255;
+	scene->sphere[1].color.x = 10;
+	scene->sphere[1].color.y = 255;
+	scene->sphere[1].color.z = 0;
 	scene->sphere[2].center.x = 1;
 	scene->sphere[2].center.y = 0;
 	scene->sphere[2].center.z = 11.6;
 	scene->sphere[2].radius = 3;
-	scene->sphere[2].color.x = 10;
-	scene->sphere[2].color.y = 0;
-	scene->sphere[2].color.z = 255;
+	scene->sphere[2].color.x = 255;
+	scene->sphere[2].color.y = 10;
+	scene->sphere[2].color.z = 0;
 	// scene->plane = malloc(sizeof(t_plane));
 	// scene->plane->point.x = 0;
 	// scene->plane->point.y = 0;
@@ -106,7 +106,7 @@ int	ft_new_img(t_window *mlx, t_scene *scene)
 {
 	int			i;
 	int			j;
-	int			color;
+	t_vec3		color;
 	t_ray		ray;
 	double		t;
 	t_vec3		hit_point;
@@ -115,6 +115,8 @@ int	ft_new_img(t_window *mlx, t_scene *scene)
 	int			closest_sphere_index;
 	double		closest_t;
 	int			k;
+	t_vec3		light_direction;
+	double		diffuse_factor;
 
 	mlx->img.img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bits_per_pixel,
@@ -133,7 +135,9 @@ int	ft_new_img(t_window *mlx, t_scene *scene)
 			ray.direction.y = viewport.y + scene->camera->normal_vec3.y;
 			ray.direction.z = scene->camera->normal_vec3.z;
 			ray.direction = normalize_vec3(ray.direction);
-			color = 0x00555555;
+			color.x = 0;
+			color.y = 0;
+			color.z = 0;
 			closest_t = INFINITY;
 			closest_sphere_index = -1;
 			k = 0;
@@ -153,9 +157,16 @@ int	ft_new_img(t_window *mlx, t_scene *scene)
 			{
 				hit_point = add_vec3_vec3(ray.origin, multiply_vec3(ray.direction, closest_t));
 				normal = calculate_normal(hit_point, scene->sphere[closest_sphere_index].center);
-				color = convert_to_rgb(normal);
+				light_direction = normalize_vec3(subtract_vec3(scene->light->light_point, hit_point));
+				diffuse_factor = dot_product(normal, light_direction) * scene->light->light_brightness;
+				color.x = (int)(diffuse_factor * scene->sphere[closest_sphere_index].color.x);
+				color.y = (int)(diffuse_factor * scene->sphere[closest_sphere_index].color.y);
+				color.z = (int)(diffuse_factor * scene->sphere[closest_sphere_index].color.z);
 			}
-			my_mlx_pixel_put(&mlx->img, i, j, color);
+			color.x += (int)(scene->amb_light->light_ratio * scene->amb_light->color.x);
+			color.y += (int)(scene->amb_light->light_ratio * scene->amb_light->color.y);
+			color.z += (int)(scene->amb_light->light_ratio * scene->amb_light->color.z);
+			my_mlx_pixel_put(&mlx->img, i, j, convert_to_rgb(color));
 			i++;
 		}
 		j--;
