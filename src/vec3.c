@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:04:07 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/31 13:29:05 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:34:00 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,5 @@ t_vec3	subtract_vec3(t_vec3 one, t_vec3 two)
 	res.x = one.x - two.x;
 	res.y = one.y - two.y;
 	res.z = one.z - two.z;
-	return (res);
-}
-
-t_vec3	normalize_vec3(t_vec3 vec3)
-{
-	double	magnitude;
-
-	magnitude = sqrt(vec3.x * vec3.x + vec3.y * vec3.y + vec3.z * vec3.z);
-	vec3.x /= magnitude;
-	vec3.y /= magnitude;
-	vec3.z /= magnitude;
-	return (vec3);
-}
-
-double	dot_product(t_vec3 one, t_vec3 two)
-{
-	double	res;
-
-	res = one.x * two.x + one.y * two.y + one.z * two.z;
 	return (res);
 }

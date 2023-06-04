@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/03 17:27:56 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:01:06 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,20 @@ t_vec3	subtract_vec3(t_vec3 one, t_vec3 two);
 t_vec3	mutilply_vec3_vec3(t_vec3 one, t_vec3 two);
 t_vec3	add_vec3_vec3(t_vec3 one, t_vec3 two);
 t_vec3	add_vec3(t_vec3 vec3, double num);
-double	dot_product(t_vec3 one, t_vec3 two);
+double	dot(t_vec3 one, t_vec3 two);
 t_vec3	calculate_normal(t_vec3 hit_point, t_vec3 sphere_center);
 t_vec3	normalize_vec3(t_vec3 vec3);
 int		convert_to_rgb(t_vec3 vec3);
 t_vec2	canvas_to_viewport(int x, int y, t_camera *camera);
 double	calculate_camera_distance(t_camera *camera);
 double	clamp(double num, double min, double max);
+void	render_img(t_window *mlx, t_scene *scene);
+void	amb_light(t_vec3 *color, t_scene *scene);
+void	draw_sphere(int index, t_vec3 *color, t_scene *scene, t_vec3 hit_point);
+void	swap_t(double *t0, double *t1);
+void	init_ray(t_camera *camera, int i, int j, t_ray *ray);
+void	render_pixel(t_window *mlx, t_scene *scene, int i, int j);
+void	init_color(t_vec3 *color);
+int		find_closest_sphere(t_scene *scene, t_ray ray, double *t_out);
 
 #endif

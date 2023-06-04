@@ -11,7 +11,11 @@ SRCS = src/main.c \
 		src/events.c \
 		src/sphere.c \
 		src/vec3.c \
-		src/color.c
+		src/color.c \
+		src/vec3_utils.c \
+		src/light.c \
+		src/image.c \
+		src/utils.c
 
 OBJS = $(SRCS:.c=.o)
 
