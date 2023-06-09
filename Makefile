@@ -15,7 +15,9 @@ SRCS = src/main.c \
 		src/vec3_utils.c \
 		src/light.c \
 		src/image.c \
-		src/utils.c
+		src/utils.c \
+		src/cylinder.c \
+		src/obj.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:45:44 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/04 18:54:46 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:02:03 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,15 @@ void	init_ray(t_camera *camera, int i, int j, t_ray *ray)
 	ray->direction.y = viewport.y + camera->normal_vec3.y;
 	ray->direction.z = camera->normal_vec3.z;
 	ray->direction = normalize_vec3(ray->direction);
+}
+
+void	calculate_t(double a, double b, double discriminant, double *t)
+{
+	double	t0;
+	double	t1;
+
+	t0 = (-b - sqrt(discriminant)) / (2 * a);
+	t1 = (-b + sqrt(discriminant)) / (2 * a);
+	swap_t(&t0, &t1);
+	*t = t0;
 }

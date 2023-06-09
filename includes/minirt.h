@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/04 18:01:06 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:04:53 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,26 @@ typedef struct s_scene
 	t_cylinder	*cylinder;
 }	t_scene;
 
+typedef struct s_obj
+{
+	char	name;
+	double	t;
+	int		index;
+}	t_obj;
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		ft_new_img(t_window *mlx, t_scene *scene);
 int		ft_close(t_window *mlx);
 int		ft_key_hook(int keycode, t_window *mlx);
 int		ft_hook(int event, t_window *mlx);
-int		intersect_sphere(t_ray ray, t_sphere sphere, double *t);
+int		intersect_sphere(t_ray *ray, t_sphere *sphere, double *t);
 t_vec3	multiply_vec3(t_vec3 vec3, double num);
 t_vec3	subtract_vec3(t_vec3 one, t_vec3 two);
 t_vec3	mutilply_vec3_vec3(t_vec3 one, t_vec3 two);
 t_vec3	add_vec3_vec3(t_vec3 one, t_vec3 two);
 t_vec3	add_vec3(t_vec3 vec3, double num);
 double	dot(t_vec3 one, t_vec3 two);
+double	length_vec3(t_vec3 vec3);
 t_vec3	calculate_normal(t_vec3 hit_point, t_vec3 sphere_center);
 t_vec3	normalize_vec3(t_vec3 vec3);
 int		convert_to_rgb(t_vec3 vec3);
@@ -139,6 +147,11 @@ void	swap_t(double *t0, double *t1);
 void	init_ray(t_camera *camera, int i, int j, t_ray *ray);
 void	render_pixel(t_window *mlx, t_scene *scene, int i, int j);
 void	init_color(t_vec3 *color);
-int		find_closest_sphere(t_scene *scene, t_ray ray, double *t_out);
+int		find_closest_sphere(t_scene *scene, t_ray *ray, double *t_out);
+int		intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t);
+void	calculate_t(double a, double b, double discriminant, double *t);
+void	draw_cylinder(int index, t_vec3 *color, t_scene *scene, t_vec3 hit_point);
+int		find_closest_cylinder(t_scene *scene, t_ray *ray, double *t_out);
+void	find_closest_object(t_scene *scene, t_ray *ray, t_obj *closest_obj);
 
 #endif

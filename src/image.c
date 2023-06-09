@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:30:33 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/04 18:01:59 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:24:30 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,18 @@ void	render_img(t_window *mlx, t_scene *scene)
 void	render_pixel(t_window *mlx, t_scene *scene, int i, int j)
 {
 	t_ray		ray;
-	double		t;
 	t_vec3		color;
-	int			closest_sphere_index;
 	t_vec3		hit_point;
+	t_obj		obj;
 
 	init_ray(scene->camera, i, j, &ray);
 	init_color(&color);
-	closest_sphere_index = find_closest_sphere(scene, ray, &t);
-	if (closest_sphere_index > -1)
-	{
-		hit_point = add_vec3_vec3(ray.origin, multiply_vec3(ray.direction, t));
-		draw_sphere(closest_sphere_index, &color, scene, hit_point);
-	}
+	find_closest_object(scene, &ray, &obj);
+	hit_point = add_vec3_vec3(ray.origin, multiply_vec3(ray.direction, obj.t));
+	if (obj.name == 's' && obj.index > -1)
+		draw_sphere(obj.index, &color, scene, hit_point);
+	else if (obj.name == 'c' && obj.index > -1)
+		draw_cylinder(obj.index, &color, scene, hit_point);
 	amb_light(&color, scene);
 	my_mlx_pixel_put(&mlx->img, i, j, convert_to_rgb(color));
 }
