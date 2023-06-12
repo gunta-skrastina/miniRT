@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/09 15:04:53 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:52:57 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,6 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }			t_data;
-
-typedef struct s_window
-{
-	void	*mlx;
-	void	*mlx_win;
-	int		height;
-	int		width;
-	t_data	img;
-}			t_window;
 
 typedef struct s_amb_light
 {
@@ -112,7 +103,19 @@ typedef struct s_scene
 	t_plane		*plane;
 	int			num_cylinders;
 	t_cylinder	*cylinder;
+	t_vec3		center;
+	double		move_speed;
 }	t_scene;
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*mlx_win;
+	int		height;
+	int		width;
+	t_data	img;
+	t_scene	*scene;
+}			t_window;
 
 typedef struct s_obj
 {
@@ -132,8 +135,10 @@ t_vec3	subtract_vec3(t_vec3 one, t_vec3 two);
 t_vec3	mutilply_vec3_vec3(t_vec3 one, t_vec3 two);
 t_vec3	add_vec3_vec3(t_vec3 one, t_vec3 two);
 t_vec3	add_vec3(t_vec3 vec3, double num);
+t_vec3	divide_vec3(t_vec3 vec3, double	num);
 double	dot(t_vec3 one, t_vec3 two);
 double	length_vec3(t_vec3 vec3);
+t_vec3	cross_vec3(t_vec3 a, t_vec3 b);
 t_vec3	calculate_normal(t_vec3 hit_point, t_vec3 sphere_center);
 t_vec3	normalize_vec3(t_vec3 vec3);
 int		convert_to_rgb(t_vec3 vec3);
@@ -153,5 +158,12 @@ void	calculate_t(double a, double b, double discriminant, double *t);
 void	draw_cylinder(int index, t_vec3 *color, t_scene *scene, t_vec3 hit_point);
 int		find_closest_cylinder(t_scene *scene, t_ray *ray, double *t_out);
 void	find_closest_object(t_scene *scene, t_ray *ray, t_obj *closest_obj);
+void	calculate_scene_center(t_scene	*scene);
+int		ft_move_left(t_window *mlx);
+int		ft_move_right(t_window *mlx);
+int		ft_zoom_in(t_window *mlx);
+int		ft_zoom_out(t_window *mlx);
+int		ft_move_up(t_window *mlx);
+int		ft_move_down(t_window *mlx);
 
 #endif

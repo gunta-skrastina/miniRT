@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:45:44 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/08 15:02:03 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:49:57 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_ray(t_camera *camera, int i, int j, t_ray *ray)
 	viewport = canvas_to_viewport(i, j, camera);
 	ray->origin.x = camera->viewpoint.x;
 	ray->origin.y = camera->viewpoint.y;
-	ray->origin.z = camera->viewpoint.z * (-1);
+	ray->origin.z = camera->viewpoint.z;
 	ray->direction.x = viewport.x + camera->normal_vec3.x;
 	ray->direction.y = viewport.y + camera->normal_vec3.y;
 	ray->direction.z = camera->normal_vec3.z;
@@ -47,4 +47,14 @@ void	calculate_t(double a, double b, double discriminant, double *t)
 	t1 = (-b + sqrt(discriminant)) / (2 * a);
 	swap_t(&t0, &t1);
 	*t = t0;
+}
+
+t_vec3	cross_vec3(t_vec3 a, t_vec3 b)
+{
+	t_vec3	res;
+
+	res.x = a.y * b.z - a.z * b.y;
+	res.y = a.z * b.x - a.x * b.z;
+	res.z = a.x * b.y - a.y * b.x;
+	return (res);
 }

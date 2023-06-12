@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/09 15:20:43 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:23:25 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,35 @@ int	main(void)
 	t_scene		*scene;
 
 	scene = malloc(sizeof(t_scene));
+	mlx.scene = scene;
+	scene->move_speed = 10;
+	scene->center.x = 0;
+	scene->center.y = 0;
+	scene->center.z = 0;
 	scene->amb_light = malloc(sizeof(t_amb_light));
 	scene->amb_light->light_ratio = 0.2;
 	scene->amb_light->color.x = 255;
 	scene->amb_light->color.y = 255;
 	scene->amb_light->color.z = 255;
 	scene->camera = malloc(sizeof(t_camera));
-	scene->camera->viewpoint.x = 10;
-	scene->camera->viewpoint.y = 10;
-	scene->camera->viewpoint.z = 30;
+	scene->camera->viewpoint.x = 0;
+	scene->camera->viewpoint.y = 0;
+	scene->camera->viewpoint.z = 2;
 	scene->camera->normal_vec3.x = 0;
 	scene->camera->normal_vec3.y = 0;
-	scene->camera->normal_vec3.z = 1;
-	scene->camera->fov = 70;
+	scene->camera->normal_vec3.z = -1;
+	scene->camera->fov = 60;
 	scene->light = malloc(sizeof(t_light));
-	scene->light->light_point.x = -40;
-	scene->light->light_point.y = 50;
+	scene->light->light_point.x = 5;
+	scene->light->light_point.y = 20;
 	scene->light->light_point.z = 0;
 	scene->light->light_brightness = 0.6;
 	scene->num_spheres = 3;
 	scene->sphere = malloc(sizeof(t_sphere) * scene->num_spheres);
-	scene->sphere[0].center.x = -4;
+	scene->sphere[0].center.x = 0;
 	scene->sphere[0].center.y = 0;
-	scene->sphere[0].center.z = 20.6;
-	scene->sphere[0].radius = 3;
+	scene->sphere[0].center.z = 0;
+	scene->sphere[0].radius = 0.1;
 	scene->sphere[0].color.x = 10;
 	scene->sphere[0].color.y = 0;
 	scene->sphere[0].color.z = 255;
@@ -52,13 +57,14 @@ int	main(void)
 	scene->sphere[1].color.x = 10;
 	scene->sphere[1].color.y = 255;
 	scene->sphere[1].color.z = 0;
-	scene->sphere[2].center.x = 1;
+	scene->sphere[2].center.x = -4;
 	scene->sphere[2].center.y = 0;
 	scene->sphere[2].center.z = 11.6;
 	scene->sphere[2].radius = 3;
 	scene->sphere[2].color.x = 255;
 	scene->sphere[2].color.y = 10;
 	scene->sphere[2].color.z = 0;
+	scene->num_planes = 0;
 	// scene->plane = malloc(sizeof(t_plane));
 	// scene->plane->point.x = 0;
 	// scene->plane->point.y = 0;
@@ -78,7 +84,7 @@ int	main(void)
 	scene->cylinder[0].normal_vec3.x = 0;
 	scene->cylinder[0].normal_vec3.x = 1;
 	scene->cylinder[0].radius = 1.5;
-	scene->cylinder[0].height = 7;
+	scene->cylinder[0].height = 3;
 	scene->cylinder[0].color.x = 10;
 	scene->cylinder[0].color.y = 0;
 	scene->cylinder[0].color.z = 255;
@@ -95,7 +101,7 @@ int	main(void)
 	scene->cylinder[1].color.z = 10;
 	scene->cylinder[2].center.x = 20;
 	scene->cylinder[2].center.y = 0;
-	scene->cylinder[2].center.z = 10;
+	scene->cylinder[2].center.z = 0;
 	scene->cylinder[2].normal_vec3.x = 0;
 	scene->cylinder[2].normal_vec3.x = 0;
 	scene->cylinder[2].normal_vec3.x = 1;
@@ -110,6 +116,7 @@ int	main(void)
 	scene->camera->width = mlx.width;
 	mlx.mlx = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx, mlx.width, mlx.height, "miniRT");
+	calculate_scene_center(scene);
 	ft_new_img(&mlx, scene);
 	mlx_key_hook(mlx.mlx_win, ft_key_hook, &mlx);
 	mlx_hook(mlx.mlx_win, 17, 0, ft_close, &mlx);

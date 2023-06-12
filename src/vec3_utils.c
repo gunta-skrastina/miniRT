@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:33:26 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/08 18:00:44 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:50:17 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ double	dot(t_vec3 one, t_vec3 two)
 double	length_vec3(t_vec3 vec3)
 {
 	return (sqrt(vec3.x * vec3.x + vec3.y * vec3.y + vec3.z * vec3.z));
+}
+
+t_vec3	divide_vec3(t_vec3 vec3, double num)
+{
+	vec3.x /= num;
+	vec3.y /= num;
+	vec3.z /= num;
+	return (vec3);
 }
