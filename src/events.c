@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 08:31:39 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/05/29 13:51:53 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:59:44 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ int	ft_key_hook(int keycode, t_window *mlx)
 {
 	if (keycode == 53)
 		ft_close(mlx);
+	if (keycode == 123)
+		return (ft_move_left(mlx));
+	if (keycode == 124)
+		return (ft_move_right(mlx));
+	if (keycode == 125)
+		return (ft_move_down(mlx));
+	if (keycode == 126)
+		return (ft_move_up(mlx));
+	if (keycode == 36)
+		return (ft_zoom_in(mlx));
+	if (keycode == 51)
+		return (ft_zoom_out(mlx));
 	return (0);
 }
 

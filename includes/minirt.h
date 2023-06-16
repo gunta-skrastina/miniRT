@@ -6,13 +6,15 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/09 15:04:53 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:32:12 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef    MINIRT_H
 # define MINIRT_H
-
+# ifndef ZOOM
+#  define ZOOM 3
+# endif
 # include "mlx.h"
 # include "libft.h"
 # include <stdio.h>
@@ -46,15 +48,6 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }			t_data;
-
-typedef struct s_window
-{
-	void	*mlx;
-	void	*mlx_win;
-	int		height;
-	int		width;
-	t_data	img;
-}			t_window;
 
 typedef struct s_amb_light
 {
@@ -99,6 +92,8 @@ typedef struct s_cylinder
 	double	radius;
 	double	height;
 	t_vec3	color;
+	t_vec3	top_normal;
+	t_vec3	bottom_normal;
 }	t_cylinder;
 
 typedef struct s_scene
@@ -112,7 +107,18 @@ typedef struct s_scene
 	t_plane		*plane;
 	int			num_cylinders;
 	t_cylinder	*cylinder;
+	double		zoom_factor;
 }	t_scene;
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*mlx_win;
+	int		height;
+	int		width;
+	t_scene	*scene;
+	t_data	img;
+}			t_window;
 
 typedef struct s_obj
 {
@@ -153,5 +159,11 @@ void	calculate_t(double a, double b, double discriminant, double *t);
 void	draw_cylinder(int index, t_vec3 *color, t_scene *scene, t_vec3 hit_point);
 int		find_closest_cylinder(t_scene *scene, t_ray *ray, double *t_out);
 void	find_closest_object(t_scene *scene, t_ray *ray, t_obj *closest_obj);
+int		ft_move_right(t_window *mlx);
+int		ft_move_left(t_window *mlx);
+int		ft_move_up(t_window *mlx);
+int		ft_move_down(t_window *mlx);
+int		ft_zoom_in(t_window *mlx);
+int		ft_zoom_out(t_window *mlx);
 
 #endif
