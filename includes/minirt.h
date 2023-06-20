@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/16 15:32:12 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:47:48 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,15 @@ typedef struct s_obj
 	int		index;
 }	t_obj;
 
+typedef	struct s_discriminant
+{
+	double	a;
+	double	b;
+	double	c;
+	double	discriminat;
+}		t_discriminant;
+
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		ft_new_img(t_window *mlx, t_scene *scene);
 int		ft_close(t_window *mlx);
@@ -165,5 +174,7 @@ int		ft_move_up(t_window *mlx);
 int		ft_move_down(t_window *mlx);
 int		ft_zoom_in(t_window *mlx);
 int		ft_zoom_out(t_window *mlx);
+t_vec3	negate_vec3(t_vec3 vec3);
+void	calculate_discriminant(t_discriminant *d, t_ray *ray, t_cylinder *cy);
 
 #endif

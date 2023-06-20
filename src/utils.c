@@ -48,3 +48,11 @@ void	calculate_t(double a, double b, double discriminant, double *t)
 	swap_t(&t0, &t1);
 	*t = t0;
 }
+
+t_vec3	negate_vec3(t_vec3 vec3)
+{
+	vec3.x *= -1;
+	vec3.y *= -1;
+	vec3.z *= -1;
+	return (vec3);
+}
