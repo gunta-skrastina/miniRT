@@ -6,14 +6,14 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:56:59 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/16 15:32:45 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/24 02:57:14 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
 int	ft_zoom_in(t_window *mlx)
-{	
+{
 	t_scene	*scene;
 
 	scene = mlx->scene;
@@ -23,7 +23,7 @@ int	ft_zoom_in(t_window *mlx)
 }
 
 int	ft_zoom_out(t_window *mlx)
-{	
+{
 	t_scene	*scene;
 
 	scene = mlx->scene;

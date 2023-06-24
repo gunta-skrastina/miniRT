@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:30:33 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/09 15:24:30 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/24 02:37:18 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	render_pixel(t_window *mlx, t_scene *scene, int i, int j)
 	if (obj.name == 's' && obj.index > -1)
 		draw_sphere(obj.index, &color, scene, hit_point);
 	else if (obj.name == 'c' && obj.index > -1)
-		draw_cylinder(obj.index, &color, scene, hit_point);
+		draw_cylinder(obj.index, &color, scene);
 	amb_light(&color, scene);
 	my_mlx_pixel_put(&mlx->img, i, j, convert_to_rgb(color));
 }

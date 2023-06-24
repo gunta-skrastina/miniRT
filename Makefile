@@ -17,9 +17,11 @@ SRCS = src/main.c \
 		src/image.c \
 		src/utils.c \
 		src/cylinder.c \
+		src/cylinder_utils.c \
 		src/obj.c \
 		src/move.c \
-		src/zoom.c
+		src/zoom.c \
+		src/mat3.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -27,7 +29,7 @@ all: $(MLX) $(LIBFT) $(NAME)
 
 $(MLX):
 	$(MAKE) -C mlx
-	mv mlx/$(MLX) $(MLX)
+	cp mlx/$(MLX) $(MLX)
 
 $(LIBFT):
 	$(MAKE) -C libft
@@ -38,6 +40,7 @@ $(NAME): $(OBJS)
 
 clean:
 	$(MAKE) clean -C libft
+	$(MAKE) clean -C mlx
 	rm -f $(OBJS) 
 	rm -rf *.dSYM
 

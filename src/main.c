@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/16 15:27:50 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/24 02:10:58 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,14 @@ int	main(void)
 	scene->cylinder[0].center.x = 0;
 	scene->cylinder[0].center.y = 4;
 	scene->cylinder[0].center.z = 10;
-	scene->cylinder[0].normal_vec3.x = 0;
-	scene->cylinder[0].normal_vec3.y = 1;
+	scene->cylinder[0].normal_vec3.x = 1;
+	scene->cylinder[0].normal_vec3.y = 0;
 	scene->cylinder[0].normal_vec3.z = 0;
 	scene->cylinder[0].radius = 2;
 	scene->cylinder[0].height = 8;
 	scene->cylinder[0].color.x = 255;
-	scene->cylinder[0].color.y = 10;
-	scene->cylinder[0].color.z = 255;
-	// scene->cylinder[0].top_normal.x = 0;
-	// scene->cylinder[0].top_normal.y = 1;
-	// scene->cylinder[0].top_normal.z = 0;
-	// scene->cylinder[0].bottom_normal.x = 0;
-	// scene->cylinder[0].bottom_normal.y = -1;
-	// scene->cylinder[0].bottom_normal.z = 0;
+	scene->cylinder[0].color.y = 0;
+	scene->cylinder[0].color.z = 0;
 	scene->cylinder[1].center.x = 10;
 	scene->cylinder[1].center.y = 0;
 	scene->cylinder[1].center.z = 10;
@@ -98,34 +92,22 @@ int	main(void)
 	scene->cylinder[1].normal_vec3.z = 0;
 	scene->cylinder[1].radius = 1.5;
 	scene->cylinder[1].height = 5;
-	scene->cylinder[1].color.x = 255;
+	scene->cylinder[1].color.x = 0;
 	scene->cylinder[1].color.y = 255;
-	scene->cylinder[1].color.z = 10;
-	// scene->cylinder[1].top_normal.x = 0;
-	// scene->cylinder[1].top_normal.y = 1;
-	// scene->cylinder[1].top_normal.z = 0;
-	// scene->cylinder[1].bottom_normal.x = 0;
-	// scene->cylinder[1].bottom_normal.y = -1;
-	// scene->cylinder[1].bottom_normal.z = 0;
+	scene->cylinder[1].color.z = 0;
 	scene->cylinder[2].center.x = -10;
 	scene->cylinder[2].center.y = 0;
 	scene->cylinder[2].center.z = 10;
 	scene->cylinder[2].normal_vec3.x = 0;
-	scene->cylinder[2].normal_vec3.y = 1;
-	scene->cylinder[2].normal_vec3.z = 0;
+	scene->cylinder[2].normal_vec3.y = 0;
+	scene->cylinder[2].normal_vec3.z = 1;
 	scene->cylinder[2].radius = 1.5;
 	scene->cylinder[2].height = 6;
-	scene->cylinder[2].color.x = 10;
-	scene->cylinder[2].color.y = 255;
-	scene->cylinder[2].color.z = 10;
-	// scene->cylinder[2].top_normal.x = 0;
-	// scene->cylinder[2].top_normal.y = 1;
-	// scene->cylinder[2].top_normal.z = 0;
-	// scene->cylinder[2].bottom_normal.x = 0;
-	// scene->cylinder[2].bottom_normal.y = -1;
-	// scene->cylinder[2].bottom_normal.z = 0;
-	mlx.width = 1920;
-	mlx.height = 1280;
+	scene->cylinder[2].color.x = 0;
+	scene->cylinder[2].color.y = 0;
+	scene->cylinder[2].color.z = 255;
+	mlx.width = 1000;
+	mlx.height = 700;
 	scene->camera->height = mlx.height;
 	scene->camera->width = mlx.width;
 	mlx.mlx = mlx_init();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/20 14:47:48 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/24 03:03:17 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ typedef struct s_plane
 	t_vec3	color;
 }	t_plane;
 
+typedef struct s_mat3
+{
+	t_vec3	x;
+	t_vec3	y;
+	t_vec3	z;
+}	t_mat3;
+
 typedef struct s_cylinder
 {
 	t_vec3	center;
@@ -94,6 +101,9 @@ typedef struct s_cylinder
 	t_vec3	color;
 	t_vec3	top_normal;
 	t_vec3	bottom_normal;
+	t_mat3	rot_mat3;
+	t_mat3	inverse_rot_mat3;
+	t_vec3	hit_point[2];
 }	t_cylinder;
 
 typedef struct s_scene
@@ -132,7 +142,7 @@ typedef	struct s_discriminant
 	double	a;
 	double	b;
 	double	c;
-	double	discriminat;
+	double	discriminant;
 }		t_discriminant;
 
 
@@ -165,7 +175,7 @@ void	init_color(t_vec3 *color);
 int		find_closest_sphere(t_scene *scene, t_ray *ray, double *t_out);
 int		intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t);
 void	calculate_t(double a, double b, double discriminant, double *t);
-void	draw_cylinder(int index, t_vec3 *color, t_scene *scene, t_vec3 hit_point);
+void	draw_cylinder(int index, t_vec3 *color, t_scene *scene);
 int		find_closest_cylinder(t_scene *scene, t_ray *ray, double *t_out);
 void	find_closest_object(t_scene *scene, t_ray *ray, t_obj *closest_obj);
 int		ft_move_right(t_window *mlx);
@@ -176,5 +186,12 @@ int		ft_zoom_in(t_window *mlx);
 int		ft_zoom_out(t_window *mlx);
 t_vec3	negate_vec3(t_vec3 vec3);
 void	calculate_discriminant(t_discriminant *d, t_ray *ray, t_cylinder *cy);
+t_vec3	mat3_multiply_vec3(t_mat3 mat, t_vec3 vec);
+void	calculate_rot_mat3(t_cylinder *cylinder);
+t_vec3	cross(t_vec3 a, t_vec3 b);
+t_vec3	vec3_init(double x, double y, double z);
+t_mat3	mat3_init(t_vec3 x, t_vec3 y, t_vec3 z);
+t_mat3	mat3_transpose(t_mat3 mat);
+void	calculate_top_bottom_normals(t_cylinder *cylinder);
 
 #endif
