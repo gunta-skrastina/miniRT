@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 15:51:03 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 04:08:33 by gskrasti         ###   ########.fr       */
+/*   Created: 2023/06/24 03:38:39 by gskrasti          #+#    #+#             */
+/*   Updated: 2023/06/25 22:56:18 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-int	convert_to_rgb(t_vec3 vec3)
+int	is_shadow(t_vec3 hit_point, t_scene *scene)
 {
-	int	color;
-	int	r;
-	int	g;
-	int	b;
+	t_light *light;
+	t_ray	shadow_ray;
+	t_obj	obj;
 
-	r = clamp(vec3.x, 0, 255);
-	g = clamp(vec3.y, 0, 255);
-	b = clamp(vec3.z, 0, 255);
-	color = r << 16 | g << 8 | b;
-	return (color);
-}
-
-double	clamp(double num, double min, double max)
-{
-	if (num < min)
-		return (min);
-	if (num > max)
-		return (max);
-	return (num);
-}
-
-void	init_color(t_vec3 *color)
-{
-	color->x = 50;
-	color->y = 50;
-	color->z = 50;
+	light = scene->light;
+	shadow_ray.direction = subtract_vec3(light->light_point, hit_point);
+	shadow_ray.direction = normalize_vec3(shadow_ray.direction);
+	shadow_ray.origin = hit_point;
+	find_closest_object(scene, &shadow_ray, &obj);
+	if (obj.name != 'n' && obj.t > 0.001)
+		return (1);
+	return (0);
 }

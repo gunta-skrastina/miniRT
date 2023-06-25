@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 03:03:17 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/24 03:40:26 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,5 +193,6 @@ t_vec3	vec3_init(double x, double y, double z);
 t_mat3	mat3_init(t_vec3 x, t_vec3 y, t_vec3 z);
 t_mat3	mat3_transpose(t_mat3 mat);
 void	calculate_top_bottom_normals(t_cylinder *cylinder);
+int		is_shadow(t_vec3 hit_point, t_scene *scene);
 
 #endif

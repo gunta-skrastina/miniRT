@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:45:44 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/23 09:06:11 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/25 22:50:58 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ void	calculate_t(double a, double b, double discriminant, double *t)
 
 	t0 = (-b - sqrt(discriminant)) / (2 * a);
 	t1 = (-b + sqrt(discriminant)) / (2 * a);
-	swap_t(&t0, &t1);
-	*t = t0;
+	if (t0 >= 0 && t0 < t1)
+		*t = t0;
+	else if (t1 >= 0)
+		*t = t1;
+	else
+		*t = -1;
 }
 
 t_vec3	negate_vec3(t_vec3 vec3)
