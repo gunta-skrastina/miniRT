@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 02:10:58 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:43:34 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	main(void)
 	scene->amb_light->color.z = 255;
 	scene->camera = malloc(sizeof(t_camera));
 	scene->camera->viewpoint.x = 0;
-	scene->camera->viewpoint.y = -5;
-	scene->camera->viewpoint.z = 30;
+	scene->camera->viewpoint.y = 0;
+	scene->camera->viewpoint.z = 60;
 	scene->camera->normal_vec3.x = 0;
 	scene->camera->normal_vec3.y = 0;
 	scene->camera->normal_vec3.z = 1;
@@ -36,28 +36,28 @@ int	main(void)
 	scene->light = malloc(sizeof(t_light));
 	scene->light->light_point.x = 0;
 	scene->light->light_point.y = 40;
-	scene->light->light_point.z = -10;
+	scene->light->light_point.z = 0;
 	scene->light->light_brightness = 0.6;
 	scene->num_spheres = 3;
 	scene->sphere = malloc(sizeof(t_sphere) * scene->num_spheres);
 	scene->sphere[0].center.x = 0;
-	scene->sphere[0].center.y = 0;
+	scene->sphere[0].center.y = 10;
 	scene->sphere[0].center.z = 10;
 	scene->sphere[0].radius = 3;
 	scene->sphere[0].color.x = 10;
 	scene->sphere[0].color.y = 0;
 	scene->sphere[0].color.z = 255;
-	scene->sphere[1].center.x = 10;
-	scene->sphere[1].center.y = 0;
-	scene->sphere[1].center.z = 22.6;
-	scene->sphere[1].radius = 3;
+	scene->sphere[1].center.x = 0;
+	scene->sphere[1].center.y = 2;
+	scene->sphere[1].center.z = 10;
+	scene->sphere[1].radius = 4;
 	scene->sphere[1].color.x = 10;
 	scene->sphere[1].color.y = 255;
 	scene->sphere[1].color.z = 0;
 	scene->sphere[2].center.x = 1;
-	scene->sphere[2].center.y = 0;
-	scene->sphere[2].center.z = 11.6;
-	scene->sphere[2].radius = 3;
+	scene->sphere[2].center.y = -10;
+	scene->sphere[2].center.z = 10;
+	scene->sphere[2].radius = 5;
 	scene->sphere[2].color.x = 255;
 	scene->sphere[2].color.y = 10;
 	scene->sphere[2].color.z = 0;
