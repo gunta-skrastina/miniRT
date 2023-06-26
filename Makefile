@@ -22,7 +22,8 @@ SRCS = src/main.c \
 		src/move.c \
 		src/zoom.c \
 		src/mat3.c \
-		src/plane.c
+		src/plane.c \
+		src/shadow.c
 
 OBJS = $(SRCS:.c=.o)
 

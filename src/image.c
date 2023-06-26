@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:30:33 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/26 07:19:10 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:55:00 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	render_pixel(t_window *mlx, t_scene *scene, int i, int j)
 	init_ray(scene->camera, i, j, &ray);
 	init_color(&color);
 	find_closest_object(scene, &ray, &obj);
-	hit_point = add_vec3_vec3(ray.origin, multiply_vec3(ray.direction, obj.t));
+	if (obj.name != 'n')
+		hit_point = add_vec3_vec3(ray.origin, multiply_vec3(ray.direction, obj.t));
 	if (obj.name == 's' && obj.index > -1)
 		draw_sphere(obj.index, &color, scene, hit_point);
 	else if (obj.name == 'c' && obj.index > -1)
@@ -79,5 +80,11 @@ void	render_pixel(t_window *mlx, t_scene *scene, int i, int j)
 	else if (obj.name == 'p' && obj.index > -1)
 		draw_plane(obj.index, &color, scene);
 	amb_light(&color, scene);
+	if (obj.name != 'n' && obj.t > 0 && is_shadow(hit_point, scene, &obj))
+	{
+		color.x -= 100;
+		color.y -= 100;
+		color.z -= 100;
+	}
 	my_mlx_pixel_put(&mlx->img, i, j, convert_to_rgb(color));
 }

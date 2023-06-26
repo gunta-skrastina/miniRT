@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:51:03 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 01:42:33 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/24 04:08:33 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ double	clamp(double num, double min, double max)
 
 void	init_color(t_vec3 *color)
 {
-	color->x = 255;
-	color->y = 255;
-	color->z = 255;
+	color->x = 50;
+	color->y = 50;
+	color->z = 50;
 }
