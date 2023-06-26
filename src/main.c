@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/26 19:43:34 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:07:05 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ int	main(void)
 	scene->sphere[2].color.x = 255;
 	scene->sphere[2].color.y = 10;
 	scene->sphere[2].color.z = 0;
-	// scene->plane = malloc(sizeof(t_plane));
-	// scene->plane->point.x = 0;
-	// scene->plane->point.y = 0;
-	// scene->plane->point.z = -10;
-	// scene->plane->normal_vec3.x = 0;
-	// scene->plane->normal_vec3.y = 1;
-	// scene->plane->normal_vec3.z = 0;
-	// scene->plane->color.x = 0;
-	// scene->plane->color.y = 0;
-	// scene->plane->color.z = 255;
+	scene->num_planes = 1;
+	scene->plane = malloc(sizeof(t_plane) * scene->num_planes);
+	scene->plane->point.x = 0;
+	scene->plane->point.y = 1;
+	scene->plane->point.z = 0;
+	scene->plane->normal_vec3.x = 0;
+	scene->plane->normal_vec3.y = 1;
+	scene->plane->normal_vec3.z = 0;
+	scene->plane->color.x = 0;
+	scene->plane->color.y = 50;
+	scene->plane->color.z = 50;
 	scene->num_cylinders = 3;
 	scene->cylinder = malloc(sizeof(t_cylinder) * scene->num_cylinders);
 	scene->cylinder[0].center.x = 0;

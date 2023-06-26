@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/26 19:37:14 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:59:31 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int		intersect_sphere(t_ray *ray, t_sphere *sphere, double *t);
 t_vec3	multiply_vec3(t_vec3 vec3, double num);
 t_vec3	subtract_vec3(t_vec3 one, t_vec3 two);
 t_vec3	mutilply_vec3_vec3(t_vec3 one, t_vec3 two);
-t_vec3	add_vec3_vec3(t_vec3 one, t_vec3 two);
+t_vec3	vec3_add(t_vec3 one, t_vec3 two);
 t_vec3	add_vec3(t_vec3 vec3, double num);
 double	dot(t_vec3 one, t_vec3 two);
 double	length_vec3(t_vec3 vec3);
@@ -177,7 +177,7 @@ int		intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t);
 void	calculate_t(double a, double b, double discriminant, double *t);
 void	draw_cylinder(int index, t_vec3 *color, t_scene *scene);
 int		find_closest_cylinder(t_scene *scene, t_ray *ray, double *t_out);
-void	find_closest_object(t_scene *scene, t_ray *ray, t_obj *closest_obj);
+void	find_closest_object(t_scene *scene, t_ray *ray, t_obj *obj);
 int		ft_move_right(t_window *mlx);
 int		ft_move_left(t_window *mlx);
 int		ft_move_up(t_window *mlx);
@@ -193,9 +193,16 @@ t_vec3	vec3_init(double x, double y, double z);
 t_mat3	mat3_init(t_vec3 x, t_vec3 y, t_vec3 z);
 t_mat3	mat3_transpose(t_mat3 mat);
 void	calculate_top_bottom_normals(t_cylinder *cylinder);
+int		intersect_plane(t_ray *ray, t_plane *plane, double *t);
+int		find_closest_plane(t_scene *scene, t_ray *ray, double *t_out);
+void	draw_plane(int index, t_vec3 *color, t_scene *scene);
 int		is_shadow(t_vec3 hit_point, t_scene *scene, t_obj *object);
-void	find_closest_shadow(t_scene *scene, t_ray *ray, t_obj *current_obj, t_obj *closest_obj);
-int		find_closest_shadow_sphere(t_scene *scene, t_ray *ray, double *t_out, t_obj *current_obj);
-int		find_closest_shadow_cylinder(t_scene *scene, t_ray *ray, double *t_out, t_obj *current_obj);
+void	closest_shdw(t_scene *scene, t_ray *ray, t_obj *current, t_obj *obj);
+int		closest_shdw_sphere(t_scene *scene, t_ray *ray, double *t, t_obj *current);
+int		closest_shdw_cylinder(t_scene *scene, t_ray *ray, double *t, t_obj *current);
+int		closest_shdw_plane(t_scene *scene, t_ray *ray, double *t, t_obj *current);
+void	closest_obj(t_obj *obj, double t, int index, char name);
+int		calculate_hit_cy(t_discriminant *d, double *t, t_cylinder *cy, t_ray *ray);
+t_vec3	cy_light_direction(t_cylinder *cy, t_scene *scene);
 
 #endif
