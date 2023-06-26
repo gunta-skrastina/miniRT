@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:45:28 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/26 21:00:10 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:02:45 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_vec3	cy_light_direction(t_cylinder *cy, t_scene *scene)
 			subtract_vec3(scene->light->light_point, cy->center));
 	light_direction = subtract_vec3(light_direction, cy->hit_point[0]);
 	light_direction = normalize_vec3(light_direction);
+	return (light_direction);
 }
 
 void	draw_cylinder(int index, t_vec3 *color, t_scene *scene)
