@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 15:04:07 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/04 16:34:00 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:46:57 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-t_vec3	add_vec3_vec3(t_vec3 one, t_vec3 two)
+t_vec3	vec3_add(t_vec3 one, t_vec3 two)
 {
 	t_vec3	res;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mat3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 02:59:49 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 03:03:17 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:36:59 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,16 @@ void	calculate_rot_mat3(t_cylinder *cylinder)
 	one_minus_cos_theta = 1.0 - cos_theta;
 	cylinder->rot_mat3 = mat3_init(
 			vec3_init(cos_theta + rot_axis.x * rot_axis.x * one_minus_cos_theta,
-				rot_axis.x * rot_axis.y * one_minus_cos_theta - rot_axis.z * sin_theta,
-				rot_axis.x * rot_axis.z * one_minus_cos_theta + rot_axis.y * sin_theta),
-			vec3_init(rot_axis.y * rot_axis.x * one_minus_cos_theta + rot_axis.z * sin_theta,
-				cos_theta + rot_axis.y * rot_axis.y * one_minus_cos_theta,
-				rot_axis.y * rot_axis.z * one_minus_cos_theta - rot_axis.x * sin_theta),
-			vec3_init(rot_axis.z * rot_axis.x * one_minus_cos_theta - rot_axis.y * sin_theta,
-				rot_axis.z * rot_axis.y * one_minus_cos_theta + rot_axis.x * sin_theta,
-				cos_theta + rot_axis.z * rot_axis.z * one_minus_cos_theta)
-			);
+				rot_axis.x * rot_axis.y * one_minus_cos_theta - rot_axis.z
+				* sin_theta, rot_axis.x * rot_axis.z * one_minus_cos_theta
+				+ rot_axis.y * sin_theta),
+			vec3_init(rot_axis.y * rot_axis.x * one_minus_cos_theta + rot_axis.z
+				* sin_theta, cos_theta + rot_axis.y * rot_axis.y
+				* one_minus_cos_theta, rot_axis.y * rot_axis.z
+				* one_minus_cos_theta - rot_axis.x * sin_theta),
+			vec3_init(rot_axis.z * rot_axis.x * one_minus_cos_theta
+				- rot_axis.y * sin_theta, rot_axis.z * rot_axis.y
+				* one_minus_cos_theta + rot_axis.x * sin_theta, cos_theta
+				+ rot_axis.z * rot_axis.z * one_minus_cos_theta));
 	cylinder->inverse_rot_mat3 = mat3_transpose(cylinder->rot_mat3);
 }

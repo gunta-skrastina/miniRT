@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 14:45:28 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 03:05:52 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:00:10 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,14 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cy, double *t)
 {
 	t_ray			local_ray;
 	t_discriminant	d;
-	double			t0;
-	double			t1;
 
 	calculate_rot_mat3(cy);
-	local_ray.origin = mat3_multiply_vec3(cy->inverse_rot_mat3, subtract_vec3(ray->origin, cy->center));
-	local_ray.direction = mat3_multiply_vec3(cy->inverse_rot_mat3, ray->direction);
+	local_ray.origin = mat3_multiply_vec3(cy->inverse_rot_mat3,
+			subtract_vec3(ray->origin, cy->center));
+	local_ray.direction
+		= mat3_multiply_vec3(cy->inverse_rot_mat3, ray->direction);
 	calculate_discriminant(&d, &local_ray, cy);
-	if (d.discriminant < 0)
-		return (0);
-	t0 = (-d.b - sqrt(d.discriminant)) / (2.0 * d.a);
-	t1 = (-d.b + sqrt(d.discriminant)) / (2.0 * d.a);
-	if (t0 >= 0 && (t1 < 0 || t0 < t1))
-		*t = t0;
-	else if (t1 >= 0 && (t0 < 0 || t1 < t0))
-		*t = t1;
-	cy->hit_point[0] = add_vec3_vec3(local_ray.origin, multiply_vec3(local_ray.direction, t0));
-	cy->hit_point[1] = add_vec3_vec3(local_ray.origin, multiply_vec3(local_ray.direction, t1));
-	if ((cy->hit_point[0].y < (cy->center.y - cy->height / 2)
-			&& cy->hit_point[1].y < (cy->center.y - cy->height / 2))
-		|| (cy->hit_point[0].y > (cy->center.y + cy->height / 2)
-			&& cy->hit_point[1].y > (cy->center.y + cy->height / 2)))
-		return (0);
-	if (t0 >= 0 && t0 < t1)
-		*t = t0;
-	else if (t1 >= 0)
-	{
-		*t = t1;
-		cy->hit_point[0] = cy->hit_point[1];
-	}
-	else
+	if (d.discriminant < 0 || calculate_hit_cy(&d, t, cy, &local_ray) == 0)
 		return (0);
 	return (1);
 }
@@ -96,6 +74,16 @@ int	find_closest_cylinder(t_scene *scene, t_ray *ray, double *t_out)
 	return (closest_cylinder_index);
 }
 
+t_vec3	cy_light_direction(t_cylinder *cy, t_scene *scene)
+{
+	t_vec3		light_direction;
+
+	light_direction = mat3_multiply_vec3(cy->inverse_rot_mat3,
+			subtract_vec3(scene->light->light_point, cy->center));
+	light_direction = subtract_vec3(light_direction, cy->hit_point[0]);
+	light_direction = normalize_vec3(light_direction);
+}
+
 void	draw_cylinder(int index, t_vec3 *color, t_scene *scene)
 {
 	t_vec3		normal;
@@ -105,24 +93,19 @@ void	draw_cylinder(int index, t_vec3 *color, t_scene *scene)
 	t_vec3		local_hit_point;
 
 	cy = scene->cylinder + index;
-	light_direction = mat3_multiply_vec3(cy->inverse_rot_mat3, subtract_vec3(scene->light->light_point, cy->center));
-	light_direction = subtract_vec3(light_direction, cy->hit_point[0]);
-	light_direction = normalize_vec3(light_direction);
+	light_direction = cy_light_direction(cy, scene);
 	if (cy->hit_point[0].y < (cy->center.y - cy->height / 2) + 0.001)
 		normal = vec3_init(0, -1, 0);
 	else if (cy->hit_point[0].y > (cy->center.y + cy->height / 2) - 0.001)
 		normal = vec3_init(0, 1, 0);
 	else
 	{
-		local_hit_point = mat3_multiply_vec3(cy->inverse_rot_mat3, subtract_vec3(cy->hit_point[0], cy->center));
+		local_hit_point = mat3_multiply_vec3(cy->inverse_rot_mat3,
+				subtract_vec3(cy->hit_point[0], cy->center));
 		normal = calculate_normal(local_hit_point, vec3_init(0, 0, 0));
 		normal = mat3_multiply_vec3(cy->rot_mat3, normal);
 	}
-	diffuse_factor = dot(normal, light_direction);
-	if (diffuse_factor < 0)
-		diffuse_factor = 0;
-	else if (diffuse_factor > 1)
-		diffuse_factor = 1;
+	diffuse_factor = clamp(dot(normal, light_direction), 0, 1);
 	color->x = (int)(diffuse_factor * cy->color.x);
 	color->y = (int)(diffuse_factor * cy->color.y);
 	color->z = (int)(diffuse_factor * cy->color.z);

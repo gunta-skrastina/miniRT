@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 06:33:32 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/26 18:07:33 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:21:48 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	intersect_plane(t_ray *ray, t_plane *plane, double *t)
 	double	denom;
 	t_vec3	plane_to_ray_origin;
 	double	distance;
-	
-    denom = dot(plane->normal_vec3, ray->direction);
-    if (fabs(denom) < 0.001)
-        return (0);
-    plane_to_ray_origin = subtract_vec3(ray->origin, plane->point);
-    distance = dot(plane_to_ray_origin, plane->normal_vec3) / denom;
-    if (distance < 0)
-        return (0);
-    *t = distance;
-    return (1);
+
+	denom = dot(plane->normal_vec3, ray->direction);
+	if (fabs(denom) < 0.001)
+		return (0);
+	plane_to_ray_origin = subtract_vec3(ray->origin, plane->point);
+	distance = dot(plane_to_ray_origin, plane->normal_vec3) / denom;
+	if (distance < 0)
+		return (0);
+	*t = distance;
+	return (1);
 }
 
-int find_closest_plane(t_scene *scene, t_ray *ray, double *t_out)
+int	find_closest_plane(t_scene *scene, t_ray *ray, double *t_out)
 {
 	int			closest_plane_index;
 	double		closest_t;

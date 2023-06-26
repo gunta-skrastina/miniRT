@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:33:18 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/26 20:01:09 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:07:05 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(void)
 	scene->num_planes = 1;
 	scene->plane = malloc(sizeof(t_plane) * scene->num_planes);
 	scene->plane->point.x = 0;
-	scene->plane->point.y = 0;
+	scene->plane->point.y = 1;
 	scene->plane->point.z = 0;
 	scene->plane->normal_vec3.x = 0;
 	scene->plane->normal_vec3.y = 1;
