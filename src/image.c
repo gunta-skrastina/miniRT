@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:30:33 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/25 22:09:55 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:44:31 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,11 @@ void	render_pixel(t_window *mlx, t_scene *scene, int i, int j)
 	else if (obj.name == 'c' && obj.index > -1)
 		draw_cylinder(obj.index, &color, scene);
 	amb_light(&color, scene);
-	if (obj.name != 'n' && obj.t > 0 && is_shadow(hit_point, scene))
+	if (obj.name != 'n' && obj.t > 0 && is_shadow(hit_point, scene, &obj))
 	{
-		color.x = 255;
-		color.y = 192;
-		color.z = 42;
-		// color.x = 0;
-		// color.y = 0;
-		// color.z = 0;
+		color.x -= 100;
+		color.y -= 100;
+		color.z -= 100;
 	}
 	my_mlx_pixel_put(&mlx->img, i, j, convert_to_rgb(color));
 }

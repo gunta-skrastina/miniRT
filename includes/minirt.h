@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 03:40:26 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:37:14 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,9 @@ t_vec3	vec3_init(double x, double y, double z);
 t_mat3	mat3_init(t_vec3 x, t_vec3 y, t_vec3 z);
 t_mat3	mat3_transpose(t_mat3 mat);
 void	calculate_top_bottom_normals(t_cylinder *cylinder);
-int		is_shadow(t_vec3 hit_point, t_scene *scene);
+int		is_shadow(t_vec3 hit_point, t_scene *scene, t_obj *object);
+void	find_closest_shadow(t_scene *scene, t_ray *ray, t_obj *current_obj, t_obj *closest_obj);
+int		find_closest_shadow_sphere(t_scene *scene, t_ray *ray, double *t_out, t_obj *current_obj);
+int		find_closest_shadow_cylinder(t_scene *scene, t_ray *ray, double *t_out, t_obj *current_obj);
 
 #endif
