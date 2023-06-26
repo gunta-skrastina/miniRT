@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/24 03:03:17 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 06:49:00 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,5 +193,8 @@ t_vec3	vec3_init(double x, double y, double z);
 t_mat3	mat3_init(t_vec3 x, t_vec3 y, t_vec3 z);
 t_mat3	mat3_transpose(t_mat3 mat);
 void	calculate_top_bottom_normals(t_cylinder *cylinder);
+int		intersect_plane(t_ray *ray, t_plane *plane, double *t);
+int		find_closest_plane(t_scene *scene, t_ray *ray, double *t_out);
+void	draw_plane(int index, t_vec3 *color, t_scene *scene);
 
 #endif
