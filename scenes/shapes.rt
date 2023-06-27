@@ -1,0 +1,18 @@
+#Ambient lightning
+#light ratio + RGB
+A 0.2 255,255,255
+#Camera
+#x,y,z coordinates + 3d normalized vec3 + FOV
+C -50,0,20 0,0,0 70
+#Light
+#x,y,z coordinates + brightness + RGB
+L -40,0,30 0.7 255,255,255
+#Plane
+#x,y,z coordinates + 3d normalized vec3 + RGB
+pl 0,0,0 0,1.0,0 255,0,225
+#Sphere
+#x,y,z + diameter + RGB
+sp 0,0,20 20 255,0,0
+#Cylinder
+#x,y,z coordinates + 3d normalize vector + diamiter + height + RGB
+cy 50.0,0.0,20.6 0,0,1.0 14.2 21.42 10,0,255

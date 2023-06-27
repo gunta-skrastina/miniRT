@@ -23,7 +23,14 @@ SRCS = src/main.c \
 		src/zoom.c \
 		src/mat3.c \
 		src/plane.c \
-		src/shadow.c
+		src/shadow.c \
+		src/parse.c \
+		src/parse_utils.c \
+		src/parse_objects.c \
+		src/parse_elements.c \
+		src/error.c \
+		get_next_line/get_next_line.c \
+		get_next_line/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/26 20:59:31 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:15:44 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,18 @@
 # ifndef ZOOM
 #  define ZOOM 3
 # endif
+# define SP 1
+# define PL 2
+# define CY 4
 # include "mlx.h"
 # include "libft.h"
+# include "get_next_line.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <fcntl.h>
+# include <mlx.h>
+# include <unistd.h>
 
 typedef struct s_vec3
 {
@@ -106,6 +113,20 @@ typedef struct s_cylinder
 	t_vec3	hit_point[2];
 }	t_cylinder;
 
+union	u_figures
+{
+	t_sphere	sp;
+	t_plane		pl;
+	t_cylinder	cy;
+};
+
+typedef struct s_figures
+{
+	int					flag;
+	union u_figures		figures;
+	struct s_figures	*next;
+}				t_figures;
+
 typedef struct s_scene
 {
 	t_amb_light	*amb_light;
@@ -118,6 +139,8 @@ typedef struct s_scene
 	int			num_cylinders;
 	t_cylinder	*cylinder;
 	double		zoom_factor;
+	int			height;
+	int			width;
 }	t_scene;
 
 typedef struct s_window
@@ -137,14 +160,13 @@ typedef struct s_obj
 	int		index;
 }	t_obj;
 
-typedef	struct s_discriminant
+typedef struct s_discriminant
 {
 	double	a;
 	double	b;
 	double	c;
 	double	discriminant;
 }		t_discriminant;
-
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		ft_new_img(t_window *mlx, t_scene *scene);
@@ -198,11 +220,41 @@ int		find_closest_plane(t_scene *scene, t_ray *ray, double *t_out);
 void	draw_plane(int index, t_vec3 *color, t_scene *scene);
 int		is_shadow(t_vec3 hit_point, t_scene *scene, t_obj *object);
 void	closest_shdw(t_scene *scene, t_ray *ray, t_obj *current, t_obj *obj);
-int		closest_shdw_sphere(t_scene *scene, t_ray *ray, double *t, t_obj *current);
-int		closest_shdw_cylinder(t_scene *scene, t_ray *ray, double *t, t_obj *current);
-int		closest_shdw_plane(t_scene *scene, t_ray *ray, double *t, t_obj *current);
+int		closest_shdw_sphere(t_scene *scene,
+			t_ray *ray, double *t, t_obj *current);
+int		closest_shdw_cylinder(t_scene *scene,
+			t_ray *ray, double *t, t_obj *current);
+int		closest_shdw_plane(t_scene *scene,
+			t_ray *ray, double *t, t_obj *current);
 void	closest_obj(t_obj *obj, double t, int index, char name);
-int		calculate_hit_cy(t_discriminant *d, double *t, t_cylinder *cy, t_ray *ray);
+int		calculate_hit_cy(t_discriminant *d,
+			double *t, t_cylinder *cy, t_ray *ray);
 t_vec3	cy_light_direction(t_cylinder *cy, t_scene *scene);
+
+//ERRORS
+int			print_error(char *str);
+void		fatal_error(char *str);
+void		error_v2(t_scene *scene);
+void		free_scene(t_scene *scene);
+void		exit_error(int code);
+void		check_dub(double num, t_scene *scene, int flag);
+void		parse_error(t_scene *scene, int fd);
+
+//PARSING
+t_scene		*parse_scene(char *file_name);
+void		parse_sphere(char **str, t_scene *scene);
+void		parse_plane(char **str, t_scene *scene);
+void		parse_cylinder(char **str, t_scene *scene);
+int			parse(char *str, t_scene *scene);
+void		create_scene(t_scene **scene);
+t_scene		*parse_scene(char *file_name);
+void		parse_ambient(char **str, t_scene *scene);
+void		parse_camera(char **str, t_scene *scene);
+void		parse_light(char **str, t_scene *scene);
+
+//UTILS
+t_vec3		read_vector(char **str, t_scene *scene, int flag);
+double		dub(char **str, t_scene *scene, int flag);
+void		next(char **str, t_scene *scene);
 
 #endif
