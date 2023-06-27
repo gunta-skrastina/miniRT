@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/27 16:15:44 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:39:52 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,13 @@ typedef struct s_scene
 	t_camera	*camera;
 	t_light		*light;
 	int			num_spheres;
+	int			sphere_index;
 	t_sphere	*sphere;
 	int			num_planes;
+	int			plane_index;
 	t_plane		*plane;
 	int			num_cylinders;
+	int			cylinder_index;
 	t_cylinder	*cylinder;
 	double		zoom_factor;
 	int			height;
@@ -247,7 +250,6 @@ void		parse_plane(char **str, t_scene *scene);
 void		parse_cylinder(char **str, t_scene *scene);
 int			parse(char *str, t_scene *scene);
 void		create_scene(t_scene **scene);
-t_scene		*parse_scene(char *file_name);
 void		parse_ambient(char **str, t_scene *scene);
 void		parse_camera(char **str, t_scene *scene);
 void		parse_light(char **str, t_scene *scene);

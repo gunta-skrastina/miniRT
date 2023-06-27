@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 16:03:48 by fjerinic          #+#    #+#             */
-/*   Updated: 2023/06/27 16:15:13 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:48:32 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ void	create_scene(t_scene **scene)
 	(*scene)->light = NULL;
 	(*scene)->height = 1080;
 	(*scene)->width = 1920;
+	(*scene)->cylinder_index = 0;
+	(*scene)->sphere_index = 0;
+	(*scene)->plane_index = 0;
+	(*scene)->cylinder = (t_cylinder*)malloc(sizeof(t_cylinder) * 10);
+	(*scene)->sphere = (t_sphere*)malloc(sizeof(t_sphere) * 10);
+	(*scene)->plane = (t_plane*)malloc(sizeof(t_plane) * 10);
 }
 
 void	count_objects(char *str, t_scene *scene)
