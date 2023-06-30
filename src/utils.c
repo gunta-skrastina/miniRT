@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 16:45:44 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/30 14:33:14 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:27:41 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ void	swap_t(double *t0, double *t1)
 	}
 }
 
+void	camera_directions(t_camera *camera, t_vec3 *fwd, t_vec3 *right, t_vec3 *up)
+{
+	if (camera->normal_vec3.x == 0 && camera->normal_vec3.y == -1 && camera->normal_vec3.z == 0)
+	{
+		*fwd = vec3_init(0, 1, 0);
+		*right = vec3_init(1, 0, 0);
+		*up = vec3_init(0, 0, -1);
+	}
+	else if (camera->normal_vec3.x == 0 && camera->normal_vec3.y == 1 && camera->normal_vec3.z == 0)
+	{
+		*fwd = vec3_init(0, -1, 0);
+		*right = vec3_init(1, 0, 0);
+		*up = vec3_init(0, 0, 1);
+	}
+	else
+	{
+		*fwd = normalize_vec3(camera->normal_vec3);
+		*right = normalize_vec3(cross(vec3_init(0, 1, 0), *fwd));
+		*up = cross(*right, *fwd);
+	}
+}
+
 void	init_ray(t_camera *camera, int i, int j, t_ray *ray)
 {
 	t_vec2	viewport;
@@ -36,10 +58,7 @@ void	init_ray(t_camera *camera, int i, int j, t_ray *ray)
 	direction.x = viewport.x;
 	direction.y = viewport.y;
 	direction.z = 1.0;
-	camera_forward = normalize_vec3(camera->normal_vec3);
-	camera_right = cross(vec3_init(0, 1, 0), camera_forward);
-	camera_right = normalize_vec3(camera_right);
-	camera_up = cross(camera_forward, camera_right);
+	camera_directions(camera, &camera_forward, &camera_right, &camera_up);
 	ray->direction.x = direction.x * camera_right.x + direction.y * camera_up.x
 		+ direction.z * camera_forward.x;
 	ray->direction.y = direction.x * camera_right.y + direction.y * camera_up.y
