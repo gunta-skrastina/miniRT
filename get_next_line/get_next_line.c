@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fjerinic <fjerinic@gmail.com>              +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:43:57 by fjerinic          #+#    #+#             */
-/*   Updated: 2022/05/17 21:05:53 by fjerinic         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:57:45 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*join(char *res, char *buffer)
 	if (res)
 	{
 		while (res[n])
-		{	
+		{
 			new_string[n] = res[n];
 			n++;
 		}

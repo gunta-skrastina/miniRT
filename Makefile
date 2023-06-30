@@ -1,7 +1,8 @@
 # _*_ MakeFile _*_
 
 CC = gcc
-CFLAGS = -Wextra -Wall -Werror -fsanitize=address
+CFLAGS = -Wextra -Wall -Werror -fsanitize=address 
+# -D HEIGHT=1000 -D WIDTH=1000 -D ZOOM=10
 
 NAME = miniRT
 MLX = libmlx.a

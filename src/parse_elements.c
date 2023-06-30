@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 16:07:34 by fjerinic          #+#    #+#             */
-/*   Updated: 2023/06/27 14:15:24 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:42:30 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	parse_camera(char **str, t_scene *scene)
 	next(str, scene);
 	scene->camera->viewpoint = read_vector(str, scene, 0);
 	next(str, scene);
-	scene->camera->normal_vec3 = normalize_vec3(read_vector(str, scene, 0));
+	scene->camera->normal_vec3 = normalize_vec3(read_vector(str, scene, 2));
 	next(str, scene);
 	scene->camera->fov = dub(str, scene, 2);
 	scene->camera->distance = tan((scene->camera->fov * M_PI / 180) / 2);

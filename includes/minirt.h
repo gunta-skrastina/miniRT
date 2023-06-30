@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:31:19 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/27 16:39:52 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:13:45 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 # ifndef ZOOM
 #  define ZOOM 3
 # endif
-# define SP 1
-# define PL 2
-# define CY 4
+# ifndef HEIGHT
+#  define HEIGHT 1280
+# endif
+# ifndef WIDTH
+#  define WIDTH 1920
+# endif
 # include "mlx.h"
 # include "libft.h"
 # include "get_next_line.h"
@@ -25,7 +28,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
-# include <mlx.h>
+# include "mlx.h"
 # include <unistd.h>
 
 typedef struct s_vec3
@@ -235,28 +238,29 @@ int		calculate_hit_cy(t_discriminant *d,
 t_vec3	cy_light_direction(t_cylinder *cy, t_scene *scene);
 
 //ERRORS
-int			print_error(char *str);
-void		fatal_error(char *str);
-void		error_v2(t_scene *scene);
-void		free_scene(t_scene *scene);
-void		exit_error(int code);
-void		check_dub(double num, t_scene *scene, int flag);
-void		parse_error(t_scene *scene, int fd);
+int		print_error(char *str);
+void	fatal_error(char *str);
+void	error_v2(t_scene *scene);
+void	error_v3(t_scene *scene, char *arg);
+void	free_scene(t_scene *scene);
+void	exit_error(int code);
+void	check_dub(double num, t_scene *scene, int flag);
+void	parse_error(t_scene *scene, int fd);
 
 //PARSING
-t_scene		*parse_scene(char *file_name);
-void		parse_sphere(char **str, t_scene *scene);
-void		parse_plane(char **str, t_scene *scene);
-void		parse_cylinder(char **str, t_scene *scene);
-int			parse(char *str, t_scene *scene);
-void		create_scene(t_scene **scene);
-void		parse_ambient(char **str, t_scene *scene);
-void		parse_camera(char **str, t_scene *scene);
-void		parse_light(char **str, t_scene *scene);
+t_scene	*parse_scene(char *file_name);
+void	parse_sphere(char **str, t_scene *scene);
+void	parse_plane(char **str, t_scene *scene);
+void	parse_cylinder(char **str, t_scene *scene);
+int		parse(char *str, t_scene *scene);
+void	create_scene(t_scene **scene);
+void	parse_ambient(char **str, t_scene *scene);
+void	parse_camera(char **str, t_scene *scene);
+void	parse_light(char **str, t_scene *scene);
 
 //UTILS
-t_vec3		read_vector(char **str, t_scene *scene, int flag);
-double		dub(char **str, t_scene *scene, int flag);
-void		next(char **str, t_scene *scene);
+t_vec3	read_vector(char **str, t_scene *scene, int flag);
+double	dub(char **str, t_scene *scene, int flag);
+void	next(char **str, t_scene *scene);
 
 #endif

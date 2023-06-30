@@ -6,7 +6,7 @@
 /*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 16:03:48 by fjerinic          #+#    #+#             */
-/*   Updated: 2023/06/27 16:48:32 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:32:33 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ void	create_scene(t_scene **scene)
 	(*scene)->cylinder_index = 0;
 	(*scene)->sphere_index = 0;
 	(*scene)->plane_index = 0;
-	(*scene)->cylinder = (t_cylinder*)malloc(sizeof(t_cylinder) * 10);
-	(*scene)->sphere = (t_sphere*)malloc(sizeof(t_sphere) * 10);
-	(*scene)->plane = (t_plane*)malloc(sizeof(t_plane) * 10);
+	(*scene)->cylinder = (t_cylinder *)malloc (sizeof(t_cylinder) * 10);
+	(*scene)->sphere = (t_sphere *)malloc (sizeof(t_sphere) * 10);
+	(*scene)->plane = (t_plane *)malloc (sizeof(t_plane) * 10);
+	(*scene)->amb_light = NULL;
+	(*scene)->camera = NULL;
 }
 
 void	count_objects(char *str, t_scene *scene)
@@ -65,6 +67,18 @@ void	count_objects(char *str, t_scene *scene)
 		scene->num_cylinders++;
 	else if (*str == 's' && *(str + 1) == 'p' && str++)
 		scene->num_spheres++;
+}
+
+void	check_for_parse_error(t_scene *scene)
+{
+	if (!scene->amb_light)
+		error_v3(scene, "Missing Ambient Light");
+	if (!scene->light)
+		error_v3(scene, "Missing Light");
+	if (!scene->camera)
+		error_v3(scene, "Missing Camera");
+	if (scene->amb_light->light_ratio + scene->light->light_brightness > 1)
+		error_v3(scene, "Total Light Ratio has to be less than 1");
 }
 
 // Opens a file, reads its contents line by line, 
@@ -82,7 +96,6 @@ t_scene	*parse_scene(char *file_name)
 	if (fd == -1)
 		fatal_error("file doesn't exist");
 	create_scene(&scene);
-	// mlx_init(scene);
 	str = get_next_line(fd);
 	while (str)
 	{
@@ -96,5 +109,6 @@ t_scene	*parse_scene(char *file_name)
 	}
 	free(str);
 	close(fd);
+	check_for_parse_error(scene);
 	return (scene);
 }

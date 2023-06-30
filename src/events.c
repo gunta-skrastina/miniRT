@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gskrasti <gskrasti@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: gskrasti <gskrasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 08:31:39 by gskrasti          #+#    #+#             */
-/*   Updated: 2023/06/16 11:59:44 by gskrasti         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:54:34 by gskrasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,20 @@ int	ft_key_hook(int keycode, t_window *mlx)
 
 int	ft_close(t_window *mlx)
 {
+	free_scene(mlx->scene);
 	mlx_destroy_image(mlx->mlx, mlx->img.img);
 	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
 	exit(0);
 	return (0);
+}
+
+void	free_scene(t_scene *scene)
+{
+	free(scene->cylinder);
+	free(scene->sphere);
+	free(scene->plane);
+	free(scene->camera);
+	free(scene->amb_light);
+	free(scene->light);
+	free(scene);
 }
